@@ -1,0 +1,109 @@
+{
+  "name": "PassportDPP API",
+  "description": "Digital Product Passport API for EU Circular Economy — Batteries, Textiles, Electronics & Construction. Compliant with EU Battery Regulation 2023/1542, ESPR 2023, and EU Textile Strategy.",
+  "version": "1.0.0",
+  "base_url": "https://passportdpp-api.railway.app",
+  "docs_url": "https://passportdpp-api.railway.app/docs",
+  "auth": {
+    "type": "api_key",
+    "header_name": "x-api-key"
+  },
+  "plans": {
+    "free": {
+      "name": "Free",
+      "price": 0,
+      "requests_per_day": 100,
+      "requests_per_minute": 10,
+      "features": [
+        "Health check endpoint",
+        "List 20 passports per request",
+        "Get single passport details"
+      ],
+      "rate_limit": "100/day, 10/minute"
+    },
+    "basic": {
+      "name": "Basic",
+      "price": 9.99,
+      "requests_per_day": 5000,
+      "requests_per_minute": 60,
+      "features": [
+        "All Free features",
+        "Search & filter passports (all fields)",
+        "Passport verification endpoint",
+        "EU standards reference data",
+        "100 results per request"
+      ],
+      "rate_limit": "5000/day, 60/minute"
+    },
+    "pro": {
+      "name": "Pro",
+      "price": 49.99,
+      "requests_per_day": 50000,
+      "requests_per_minute": 300,
+      "features": [
+        "All Basic features",
+        "Full passport details with materials breakdown",
+        "Advanced filtering (recyclability, carbon, status)",
+        "Batch verification support",
+        "Priority support",
+        "SLA: 99.9% uptime"
+      ],
+      "rate_limit": "50000/day, 300/minute"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": 499.99,
+      "requests_per_day": 1000000,
+      "requests_per_minute": 5000,
+      "features": [
+        "All Pro features",
+        "Unlimited dataset queries",
+        "Custom data pipeline integration",
+        "White-label deployment option",
+        "Dedicated support engineer",
+        "Custom SLA: 99.99% uptime",
+        "SSO/SAML authentication",
+        "On-premise deployment available"
+      ],
+      "rate_limit": "1,000,000/day, 5000/minute"
+    }
+  },
+  "endpoints": [
+    {
+      "path": "/v1/health",
+      "method": "GET",
+      "description": "Health check with dataset stats",
+      "plans": ["free", "basic", "pro", "enterprise"]
+    },
+    {
+      "path": "/v1/passports",
+      "method": "GET",
+      "description": "List and search Digital Product Passports",
+      "plans": ["basic", "pro", "enterprise"],
+      "parameters": ["sector", "manufacturer", "query", "status", "min_recyclability", "max_carbon", "limit", "offset"]
+    },
+    {
+      "path": "/v1/passport/{id}",
+      "method": "GET",
+      "description": "Get full DPP details by passport ID",
+      "plans": ["free", "basic", "pro", "enterprise"]
+    },
+    {
+      "path": "/v1/verify/{id}",
+      "method": "GET",
+      "description": "Verify passport authenticity and status",
+      "plans": ["basic", "pro", "enterprise"]
+    },
+    {
+      "path": "/v1/standards",
+      "method": "GET",
+      "description": "EU DPP regulatory standards by sector",
+      "plans": ["basic", "pro", "enterprise"]
+    }
+  ],
+  "rapidapi": {
+    "publisher": "nousresearch",
+    "category": "sustainability",
+    "tags": ["dpp", "digital-product-passport", "eu-regulation", "circular-economy", "sustainability"]
+  }
+}
