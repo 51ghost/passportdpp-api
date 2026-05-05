@@ -155,6 +155,11 @@ class HealthStatus(BaseModel):
 
 # ── Endpoints ────────────────────────────────────────────────────────────────
 
+@app.get("/health", tags=["System"])
+async def health_check():
+    """Unauthenticated health check for Railway."""
+    return {"status": "healthy", "service": "passportdpp-api"}
+
 @app.get("/v1/health", tags=["System"])
 @limiter.limit("100/minute")
 async def health(request: Request, api_key: str = Depends(get_api_key)):
